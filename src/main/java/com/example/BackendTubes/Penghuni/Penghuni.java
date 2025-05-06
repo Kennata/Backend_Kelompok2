@@ -27,7 +27,7 @@ public class Penghuni {
     private String jenisKendaraan;
     private String platKendaraan;
 
-    @OneToMany(mappedBy = "penghuniId")
+    @OneToMany(mappedBy = "penghuni")
     private List<Pembayaran> riwayatPembayaran;
 
     public Penghuni() {
@@ -126,5 +126,20 @@ public class Penghuni {
 
     public void setPlatKendaraan(String platKendaraan) {
         this.platKendaraan = platKendaraan;
+    }
+
+    @Override
+    public String toString() {
+        return "Penghuni{" +
+                "id=" + id +
+                ", nama='" + nama + '\'' +
+                ", usia=" + usia +
+                ", pekerjaan='" + pekerjaan + '\'' +
+                ", nomorHp='" + nomorHp + '\'' +
+                ", kontakDarurat='" + kontakDarurat + '\'' +
+                ", jenisKendaraan='" + jenisKendaraan + '\'' +
+                ", platKendaraan='" + platKendaraan + '\'' +
+                ", riwayatPembayaran=" + riwayatPembayaran +
+                '}';
     }
 }

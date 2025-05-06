@@ -1,5 +1,6 @@
 package com.example.BackendTubes.Pembayaran;
 
+import com.example.BackendTubes.Penghuni.Penghuni;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -23,19 +24,21 @@ public class Pembayaran {
 
     @ManyToOne
     @JoinColumn(name = "penghuniId", referencedColumnName = "id")
-    private Long penghuniId;
+    private Penghuni penghuni;
     public Pembayaran() {
     }
 
-    public Pembayaran(Long id, LocalDate tanggalBayar, String status) {
+    public Pembayaran(Long id, LocalDate tanggalBayar, String status, Penghuni penghuni) {
         this.id = id;
         this.tanggalBayar = tanggalBayar;
         this.status = status;
+        this.penghuni = penghuni;
     }
 
-    public Pembayaran(LocalDate tanggalBayar, String status) {
+    public Pembayaran(LocalDate tanggalBayar, String status, Penghuni penghuni) {
         this.tanggalBayar = tanggalBayar;
         this.status = status;
+        this.penghuni = penghuni;
     }
 
     public Long getId() {
@@ -60,5 +63,15 @@ public class Pembayaran {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Pembayaran{" +
+                "id=" + id +
+                ", tanggalBayar=" + tanggalBayar +
+                ", status='" + status + '\'' +
+                ", penghuni=" + penghuni +
+                '}';
     }
 }
