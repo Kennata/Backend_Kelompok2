@@ -1,6 +1,7 @@
 package com.example.BackendTubes.Penghuni;
 
 import com.example.BackendTubes.Pembayaran.Pembayaran;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -28,6 +29,7 @@ public class Penghuni {
     private String platKendaraan;
 
     @OneToMany(mappedBy = "penghuni")
+    @JsonIgnore
     private List<Pembayaran> riwayatPembayaran;
 
     public Penghuni() {

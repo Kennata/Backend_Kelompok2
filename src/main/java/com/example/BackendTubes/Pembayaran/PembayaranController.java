@@ -22,7 +22,7 @@ public class PembayaranController {
     }
 
     @PostMapping
-    public void addNewPembayaran(@RequestBody Pembayaran pembayaran){
+    public void addNewPembayaran(@RequestBody PembayaranRequest pembayaran){
         pembayaranService.addNewPembayaran(pembayaran);
     }
 }

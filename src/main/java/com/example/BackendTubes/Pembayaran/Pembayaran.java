@@ -65,6 +65,14 @@ public class Pembayaran {
         this.status = status;
     }
 
+    public Penghuni getPenghuni() {
+        return penghuni;
+    }
+
+    public void setPenghuni(Penghuni penghuni) {
+        this.penghuni = penghuni;
+    }
+
     @Override
     public String toString() {
         return "Pembayaran{" +
