@@ -1,5 +1,6 @@
 package com.example.BackendTubes.Penghuni;
 
+import com.example.BackendTubes.Dokumen.Dokumen;
 import com.example.BackendTubes.Pembayaran.Pembayaran;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -31,6 +32,10 @@ public class Penghuni {
     @OneToMany(mappedBy = "penghuni")
     @JsonIgnore
     private List<Pembayaran> riwayatPembayaran;
+
+    @OneToMany(mappedBy = "penghuni")
+    @JsonIgnore
+    private List<Dokumen> dokumenIdentitas;
 
     public Penghuni() {
     }

@@ -3,6 +3,7 @@ package com.example.BackendTubes.Dokumen;
 import com.example.BackendTubes.Penghuni.Penghuni;
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.Arrays;
 
 @Entity
 @Table(name = "dokumen")
@@ -22,7 +23,7 @@ public class Dokumen {
     private String jenis;
     private String namaFile;
     @Lob
-    @Column(columnDefinition = "BLOB")
+    @Column(columnDefinition = "MEDIUMBLOB")
     private byte[] pdfFile;
     private LocalDate tanggalUpload;
     @ManyToOne
@@ -88,5 +89,25 @@ public class Dokumen {
 
     public void setPdfFile(byte[] pdfFile) {
         this.pdfFile = pdfFile;
+    }
+
+    public Penghuni getPenghuni() {
+        return penghuni;
+    }
+
+    public void setPenghuni(Penghuni penghuni) {
+        this.penghuni = penghuni;
+    }
+
+    @Override
+    public String toString() {
+        return "Dokumen{" +
+                "id=" + id +
+                ", jenis='" + jenis + '\'' +
+                ", namaFile='" + namaFile + '\'' +
+                ", pdfFile=" + Arrays.toString(pdfFile) +
+                ", tanggalUpload=" + tanggalUpload +
+                ", penghuni=" + penghuni +
+                '}';
     }
 }
