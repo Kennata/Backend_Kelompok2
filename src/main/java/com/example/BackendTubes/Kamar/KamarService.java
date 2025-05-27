@@ -30,7 +30,7 @@ public class KamarService {
         Optional<Kos> kosId = kosRepository.findById(id);
         Map<String, Object> response = new HashMap<>();
         if (kosId.isEmpty()) {
-            response.put("message", " Kos tidak ditemukan");
+            response.put("message", "Kos Tidak Ditemukan");
             return response;
         }
         Kos kos = kosId.get();
