@@ -11,5 +11,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author LENOVO
  */
 public interface KamarRepository extends JpaRepository<Kamar, Long>{
-    
 }

@@ -4,13 +4,19 @@
  */
 package com.example.BackendTubes.Kamar;
 
-import com.example.BackendTubes.Kos.Kos;
-import com.example.BackendTubes.Kos.KosRepository;
 import java.util.HashMap;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.example.BackendTubes.Kos.Kos;
+
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import com.example.BackendTubes.Kos.KosRepository;
 
 /**
  *
@@ -26,16 +32,20 @@ public class KamarService {
         this.kosRepository = kosRepository;
     }
 
-    public Map<String, Object> viewKamar(Long id) {
-        Optional<Kos> kosId = kosRepository.findById(id);
+    public Map<String, Object> viewKamar(Long Id) {
+        Optional<Kos> cekKos = kosRepository.findById(Id);
         Map<String, Object> response = new HashMap<>();
-        if (kosId.isEmpty()) {
+        if (cekKos.isEmpty()) {
             response.put("message", "Kos Tidak Ditemukan");
             return response;
         }
-        Kos kos = kosId.get();
-        response.put("dataKamar", kos.getDataKamar());
+        Kos kos = cekKos.get();
+        List<Kamar> daftarLama = kos.getDataKamar(); 
+        List<KamarDTO> daftarBaru = daftarLama
+            .stream()
+            .map(Kamar -> new KamarDTO(Kamar.getNoKamar(),Kamar.getStatus()))
+            .collect(Collectors.toList());
+        response.put("dataKamar", daftarBaru);
         return response;
     }
-
 }
