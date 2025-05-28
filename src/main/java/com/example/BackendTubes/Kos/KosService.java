@@ -4,19 +4,19 @@
  */
 package com.example.BackendTubes.Kos;
 
-import com.example.BackendTubes.Kamar.Kamar;
-import com.example.BackendTubes.Kamar.KamarDTO;
-import com.example.BackendTubes.Kamar.KamarRepository;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.example.BackendTubes.Kamar.Kamar;
+import com.example.BackendTubes.Kamar.KamarRepository;
+import com.example.BackendTubes.Kamar.KamarService;
 
 /**
  *
@@ -27,6 +27,7 @@ public class KosService {
 
     private final KosRepository kosRepository;
     private final KamarRepository kamarRepository;
+    private KamarService kamarService;
     ArrayList<Object> data = new ArrayList<>();
 
     @Autowired
@@ -114,12 +115,7 @@ public class KosService {
             kosMap.put("deskripsi", kos.getDeskripsi());
             kosMap.put("tipeKos", kos.getTipeKos());
             kosMap.put("harga", kos.getHarga());
-            List<KamarDTO> kamarDTOList = kos.getDataKamar()
-                .stream()
-                .map(kamar -> new KamarDTO(kamar.getNoKamar(), kamar.getStatus()))
-                .collect(Collectors.toList());
-
-            kosMap.put("dataKamar", kamarDTOList);
+            kosMap.put("dataKamar", kamarService.viewKamar(kos.getId()));
             hasil.add(kosMap);
         }
         response.put("dataKos", hasil);
