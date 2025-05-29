@@ -19,7 +19,7 @@ import io.jsonwebtoken.Jwts;
 
 import java.io.IOException;
 
-@Component
+//@Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired

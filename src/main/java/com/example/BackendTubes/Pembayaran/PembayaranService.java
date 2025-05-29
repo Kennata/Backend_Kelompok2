@@ -26,6 +26,7 @@ public class PembayaranService {
 
         Pembayaran newPembayaran = new Pembayaran();
         newPembayaran.setTanggalBayar(pembayaran.getTanggalBayar());
+        newPembayaran.setNominalPembayaran(pembayaran.getNominalPembayaran());
         newPembayaran.setStatus(pembayaran.getStatus());
         newPembayaran.setPenghuni(penghuni);
         pembayaranRepository.save(newPembayaran);
