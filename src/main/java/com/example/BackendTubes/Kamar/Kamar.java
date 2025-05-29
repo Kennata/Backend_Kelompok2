@@ -4,6 +4,8 @@
  */
 package com.example.BackendTubes.Kamar;
 
+import com.example.BackendTubes.Kos.Kos;
+
 import jakarta.persistence.*;
 
 /**
@@ -19,7 +21,8 @@ public class Kamar {
     private int noKamar;
     private String status;
     @ManyToOne
-    @JoinColumn(name = "kosId", referencedColumnName = "id")
+    @JoinColumn(name="kosId")
+    private Kos kos;
 
     public Long getId() {
         return id;
@@ -43,6 +46,14 @@ public class Kamar {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Kos getKos() {
+        return kos;
+    }
+
+    public void setKos(Kos kos) {
+        this.kos = kos;
     }
     
 }

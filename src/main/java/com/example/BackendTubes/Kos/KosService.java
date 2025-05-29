@@ -4,15 +4,19 @@
  */
 package com.example.BackendTubes.Kos;
 
-import com.example.BackendTubes.Kamar.Kamar;
-import com.example.BackendTubes.Kamar.KamarRepository;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.example.BackendTubes.Kamar.Kamar;
+import com.example.BackendTubes.Kamar.KamarRepository;
+import com.example.BackendTubes.Kamar.KamarService;
 
 /**
  *
@@ -22,7 +26,8 @@ import org.springframework.stereotype.Service;
 public class KosService {
 
     private final KosRepository kosRepository;
-    private KamarRepository kamarRepository;
+    private final KamarRepository kamarRepository;
+    private KamarService kamarService;
     ArrayList<Object> data = new ArrayList<>();
 
     @Autowired
@@ -97,9 +102,23 @@ public class KosService {
     }
 
     public Map<String, Object> viewKos() {
-        List<Kos> kos = kosRepository.findAll();
+        List<Kos> kosList = kosRepository.findAll();
         Map<String, Object> response = new HashMap<>();
-        response.put("dataKos", kos);
+        List<Map<String, Object>> hasil = new ArrayList<>();
+
+        for (Kos kos : kosList) {
+            Map<String, Object> kosMap = new LinkedHashMap<>();
+            kosMap.put("id", kos.getId());
+            kosMap.put("namaKos", kos.getNamaKos());
+            kosMap.put("alamat", kos.getAlamat());
+            kosMap.put("jumlahKamar", kos.getJumlahKamar());
+            kosMap.put("deskripsi", kos.getDeskripsi());
+            kosMap.put("tipeKos", kos.getTipeKos());
+            kosMap.put("harga", kos.getHarga());
+            kosMap.put("dataKamar", kamarService.viewKamar(kos.getId()));
+            hasil.add(kosMap);
+        }
+        response.put("dataKos", hasil);
         return response;
     }
 }
