@@ -12,6 +12,11 @@ public class KamarDTO {
     private int noKamar;
     private String status;
 
+    public KamarDTO(int noKamar, String status) {
+        this.noKamar = noKamar;
+        this.status = status;
+    }
+
     public int getNoKamar() {
         return noKamar;
     }

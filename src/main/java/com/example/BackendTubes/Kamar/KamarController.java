@@ -18,8 +18,8 @@ public class KamarController {
     @Autowired
     private KamarService kamarService;
     
-    @GetMapping("/kamar/{id}")
-    public Map<String, Object> viewKamar(@PathVariable Long id){
-        return kamarService.viewKamar(id);
+    @GetMapping("/kamar/{kosId}")
+    public Map<String, Object> viewKamar(@PathVariable Long kosId){
+        return kamarService.viewKamar(kosId);
     }
 }

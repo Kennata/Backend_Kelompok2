@@ -25,7 +25,7 @@ public class Kos {
     private String tipeKos;
     private int harga;
     @OneToMany
-    @JoinColumn(name = "kosId", referencedColumnName = "id")
+    @JoinColumn(name = "kosId",referencedColumnName="id")
     private List<Kamar> dataKamar;
     
     public Long getId() {
