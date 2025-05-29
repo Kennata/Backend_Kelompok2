@@ -27,13 +27,14 @@ public class KosService {
 
     private final KosRepository kosRepository;
     private final KamarRepository kamarRepository;
-    private KamarService kamarService;
+    private final KamarService kamarService;
     ArrayList<Object> data = new ArrayList<>();
 
     @Autowired
-    public KosService(KosRepository kosRepository, KamarRepository kamarRepository) {
+    public KosService(KosRepository kosRepository, KamarRepository kamarRepository, KamarService kamarService) {
         this.kosRepository = kosRepository;
         this.kamarRepository = kamarRepository;
+        this.kamarService = kamarService;
     }
 
     public Map<String, Object> addKos(KosDTO kosDTO) {
