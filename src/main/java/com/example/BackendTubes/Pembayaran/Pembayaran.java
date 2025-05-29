@@ -20,6 +20,7 @@ public class Pembayaran {
     )
     private Long id;
     private LocalDate tanggalBayar;
+    private Double nominalPembayaran;
     private String status;
 
     @ManyToOne
@@ -28,15 +29,17 @@ public class Pembayaran {
     public Pembayaran() {
     }
 
-    public Pembayaran(Long id, LocalDate tanggalBayar, String status, Penghuni penghuni) {
+    public Pembayaran(Long id, LocalDate tanggalBayar, Double nominalPembayaran, String status, Penghuni penghuni) {
         this.id = id;
         this.tanggalBayar = tanggalBayar;
+        this.nominalPembayaran = nominalPembayaran;
         this.status = status;
         this.penghuni = penghuni;
     }
 
-    public Pembayaran(LocalDate tanggalBayar, String status, Penghuni penghuni) {
+    public Pembayaran(LocalDate tanggalBayar, Double nominalPembayaran, String status, Penghuni penghuni) {
         this.tanggalBayar = tanggalBayar;
+        this.nominalPembayaran = nominalPembayaran;
         this.status = status;
         this.penghuni = penghuni;
     }
@@ -78,8 +81,17 @@ public class Pembayaran {
         return "Pembayaran{" +
                 "id=" + id +
                 ", tanggalBayar=" + tanggalBayar +
+                ", nominalPembayaran=" + nominalPembayaran +
                 ", status='" + status + '\'' +
                 ", penghuni=" + penghuni +
                 '}';
+    }
+
+    public Double getNominalPembayaran() {
+        return nominalPembayaran;
+    }
+
+    public void setNominalPembayaran(Double nominalPembayaran) {
+        this.nominalPembayaran = nominalPembayaran;
     }
 }

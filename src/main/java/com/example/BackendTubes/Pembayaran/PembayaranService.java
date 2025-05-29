@@ -34,4 +34,8 @@ public class PembayaranService {
     public List<Pembayaran> getPembayaran(){
         return pembayaranRepository.findAll();
     }
+
+    public List<Pembayaran> getPembayaranByPenghuniId(Long penghuniId){
+        return pembayaranRepository.findAllByPenghuniId(penghuniId);
+    }
 }
