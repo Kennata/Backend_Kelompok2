@@ -1,12 +1,12 @@
 package com.example.BackendTubes.Penghuni;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class PenghuniService {
@@ -47,5 +47,25 @@ public class PenghuniService {
         }else if(update.containsKey("platKendaraan")){
             penghuni.setPlatKendaraan((String) update.get("platKendaraan"));
         }
+    }
+
+    public Map<String, Object> tambahPenghuni(PenghuniDTO penghuniDTO){
+        Optional<Penghuni> existingPenghuni = penghuniRepository.findByNama(penghuniDTO.getNama());
+        Map<String, Object> response = new HashMap<>();
+        if (existingPenghuni.isPresent()){
+            response.put("message", "Penghuni Sudah Ada");
+            return response;
+        }
+        Penghuni penghuni = new Penghuni();
+        penghuni.setNama(penghuniDTO.getNama());
+        penghuni.setUsia(penghuniDTO.getUsia());
+        penghuni.setNomorHp(penghuniDTO.getNomorHp());
+        penghuni.setPekerjaan(penghuniDTO.getPekerjaan());
+        penghuni.setKontakDarurat(penghuniDTO.getKontakDarurat());
+        penghuni.setJenisKendaraan(penghuniDTO.getJenisKendaraan());
+        penghuni.setPlatKendaraan(penghuniDTO.getPlatKendaraan());
+        penghuniRepository.save(penghuni);
+        response.put("message", "Penghuni Sudah Ditambahkan");
+        return response;
     }
 }

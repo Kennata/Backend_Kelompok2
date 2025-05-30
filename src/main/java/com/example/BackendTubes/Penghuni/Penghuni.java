@@ -1,11 +1,21 @@
 package com.example.BackendTubes.Penghuni;
 
+import java.util.List;
+
 import com.example.BackendTubes.Dokumen.Dokumen;
+import com.example.BackendTubes.Kamar.Kamar;
 import com.example.BackendTubes.Pembayaran.Pembayaran;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
 
-import java.util.List;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "penghuni")
@@ -36,6 +46,10 @@ public class Penghuni {
     @OneToMany(mappedBy = "penghuni")
     @JsonIgnore
     private List<Dokumen> dokumenIdentitas;
+
+    @ManyToOne
+    @JoinColumn(name="noKamar")
+    private Kamar kamar;
 
     public Penghuni() {
     }
@@ -148,5 +162,13 @@ public class Penghuni {
                 ", platKendaraan='" + platKendaraan + '\'' +
                 ", riwayatPembayaran=" + riwayatPembayaran +
                 '}';
+    }
+
+    public Kamar getKamar() {
+        return kamar;
+    }
+
+    public void setKamar(Kamar kamar) {
+        this.kamar = kamar;
     }
 }
