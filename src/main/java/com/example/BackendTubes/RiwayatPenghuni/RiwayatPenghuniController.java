@@ -12,7 +12,7 @@ import com.example.BackendTubes.Kos.Kos;
 import com.example.BackendTubes.Kos.KosRepository;
 
 @RestController
-@RequestMapping(path = "/api/riwayat-penghuni")
+@RequestMapping("/api/riwayat-penghuni")
 public class RiwayatPenghuniController {
     private final RiwayatPenghuniService riwayatPenghuniService;
 
@@ -21,15 +21,13 @@ public class RiwayatPenghuniController {
         this.riwayatPenghuniService = riwayatPenghuniService;
     }
 
-    @GetMapping
+    @GetMapping("/view")
     public List<RiwayatPenghuni> getRiwayatPenghuni(){
         return riwayatPenghuniService.getRiwayatPenghuni();
     }
     
-   @PostMapping
+   @PostMapping("/add")
     public void addNewRiwayatPenghuni(@RequestBody RiwayatPenghuni riwayatPenghuni) {
         riwayatPenghuniService.addNewRiwayatPenghuni(riwayatPenghuni);
     }
-
-
 }

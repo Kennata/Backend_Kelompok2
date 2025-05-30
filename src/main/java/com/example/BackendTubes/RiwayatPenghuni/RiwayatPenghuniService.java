@@ -1,10 +1,14 @@
 package com.example.BackendTubes.RiwayatPenghuni;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.BackendTubes.Kamar.kosRepository;
 import com.example.BackendTubes.Kos.Kos;
 import com.example.BackendTubes.Kos.KosRepository;
 
