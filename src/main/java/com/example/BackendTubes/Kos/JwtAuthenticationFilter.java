@@ -8,16 +8,16 @@ package com.example.BackendTubes.Kos;
  *
  * @author LENOVO
  */
+import java.io.IOException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import io.jsonwebtoken.Jwts;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.web.filter.OncePerRequestFilter;
-import io.jsonwebtoken.Jwts;
-
-import java.io.IOException;
 
 //@Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -32,7 +32,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         String path = request.getServletPath();
-        if (path.startsWith("/api/kos/")) {
+        if (path.startsWith("/api/")) {
             filterChain.doFilter(request, response); // skip jwt check for /api/auth/**
             return;
         }

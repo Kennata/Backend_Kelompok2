@@ -4,9 +4,19 @@
  */
 package com.example.BackendTubes.Kamar;
 
-import com.example.BackendTubes.Kos.Kos;
+import java.util.List;
 
-import jakarta.persistence.*;
+import com.example.BackendTubes.Kos.Kos;
+import com.example.BackendTubes.Penghuni.Penghuni;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 /**
  *
@@ -23,7 +33,10 @@ public class Kamar {
     @ManyToOne
     @JoinColumn(name="kosId")
     private Kos kos;
-
+    @OneToMany
+    @JoinColumn(name="noKamar", referencedColumnName="noKamar")
+    private List<Penghuni> dataPenghuni;
+    
     public Long getId() {
         return id;
     }
@@ -54,6 +67,14 @@ public class Kamar {
 
     public void setKos(Kos kos) {
         this.kos = kos;
+    }
+
+    public List<Penghuni> getDataPenghuni() {
+        return dataPenghuni;
+    }
+
+    public void setDataPenghuni(List<Penghuni> dataPenghuni) {
+        this.dataPenghuni = dataPenghuni;
     }
     
 }

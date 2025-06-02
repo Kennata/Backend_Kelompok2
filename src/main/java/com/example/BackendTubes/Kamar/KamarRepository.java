@@ -4,6 +4,8 @@
  */
 package com.example.BackendTubes.Kamar;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -11,4 +13,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author LENOVO
  */
 public interface KamarRepository extends JpaRepository<Kamar, Long>{
+    Optional<Kamar> findByKosIdAndNoKamar(Long kosId,int noKamar);
 }

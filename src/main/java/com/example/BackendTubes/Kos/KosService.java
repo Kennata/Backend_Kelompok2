@@ -28,7 +28,6 @@ public class KosService {
     private final KosRepository kosRepository;
     private final KamarRepository kamarRepository;
     private final KamarService kamarService;
-    ArrayList<Object> data = new ArrayList<>();
 
     @Autowired
     public KosService(KosRepository kosRepository, KamarRepository kamarRepository, KamarService kamarService) {
@@ -79,7 +78,6 @@ public class KosService {
 
         kosRepository.deleteById(id);
         response.put("message", "Kos dengan id " + id + " telah terhapus");
-        response.put("iseng", data);
         return response;
     }
 
@@ -107,16 +105,17 @@ public class KosService {
         Map<String, Object> response = new HashMap<>();
         List<Map<String, Object>> hasil = new ArrayList<>();
 
-        for (Kos kos : kosList) {
+        for (Kos k : kosList) {
             Map<String, Object> kosMap = new LinkedHashMap<>();
-            kosMap.put("id", kos.getId());
-            kosMap.put("namaKos", kos.getNamaKos());
-            kosMap.put("alamat", kos.getAlamat());
-            kosMap.put("jumlahKamar", kos.getJumlahKamar());
-            kosMap.put("deskripsi", kos.getDeskripsi());
-            kosMap.put("tipeKos", kos.getTipeKos());
-            kosMap.put("harga", kos.getHarga());
-            kosMap.put("dataKamar", kamarService.viewKamar(kos.getId()));
+            kosMap.put("id", k.getId());
+            kosMap.put("namaKos", k.getNamaKos());
+            kosMap.put("alamat", k.getAlamat());
+            kosMap.put("jumlahKamar", k.getJumlahKamar());
+            kosMap.put("deskripsi", k.getDeskripsi());
+            kosMap.put("tipeKos", k.getTipeKos());
+            kosMap.put("harga", k.getHarga());
+            Map<String, Object> kamarMap = kamarService.viewKamar(k.getId());
+            kosMap.putAll(kamarMap);
             hasil.add(kosMap);
         }
         response.put("dataKos", hasil);
