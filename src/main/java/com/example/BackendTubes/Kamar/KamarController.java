@@ -18,27 +18,27 @@ import org.springframework.web.bind.annotation.RestController;
  * @author LENOVO
  */
 @RestController
-@RequestMapping("/api/kos/view/kamar")
+@RequestMapping("/api/kos/{kosId}")
 public class KamarController {
     @Autowired
     private KamarService kamarService;
     
-    @GetMapping("/{kosId}")
+    @GetMapping
     public Map<String, Object> viewKamar(@PathVariable Long kosId){
         return kamarService.viewKamar(kosId);
     }
 
-    @PostMapping("/{kosId}/{noKamar}/penghuni/{penghuniId}")
+    @PostMapping("/{noKamar}/penghuni/{penghuniId}")
     public Map<String, Object> assignPenghuni(@PathVariable Long kosId, @PathVariable int noKamar, @PathVariable Long penghuniId){
         return kamarService.assignPenghuni(kosId, noKamar, penghuniId);
     }
 
-    @GetMapping("/{kosId}/{noKamar}/penghuni")
+    @GetMapping("/{noKamar}/penghuni")
     public Map<String, Object> viewPenghuni(@PathVariable Long kosId, @PathVariable int noKamar){
         return kamarService.viewPenghuni(kosId, noKamar);
     }
 
-    @PostMapping("/{kosId}/{noKamar}/kosong")
+    @PostMapping("/{noKamar}/kosong")
     public Map<String, Object> kosongKamar(@PathVariable Long kosId, @PathVariable int noKamar){
         return kamarService.kosongKamar(kosId, noKamar);
     }
