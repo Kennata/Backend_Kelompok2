@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class PembayaranRequest {
     private LocalDate tanggalBayar;
+    private Double nominalPembayaran;
     private String status;
     private Long penghuniId;
 
@@ -29,5 +30,13 @@ public class PembayaranRequest {
 
     public void setPenghuniId(Long penghuniId) {
         this.penghuniId = penghuniId;
+    }
+
+    public Double getNominalPembayaran() {
+        return nominalPembayaran;
+    }
+
+    public void setNominalPembayaran(Double nominalPembayaran) {
+        this.nominalPembayaran = nominalPembayaran;
     }
 }

@@ -25,4 +25,9 @@ public class PembayaranController {
     public void addNewPembayaran(@RequestBody PembayaranRequest pembayaran){
         pembayaranService.addNewPembayaran(pembayaran);
     }
+
+    @GetMapping(path = "{penghuniId}")
+    public List<Pembayaran> getPembayaranByPenghuniId(@PathVariable("penghuniId") Long penghuniId){
+        return pembayaranService.getPembayaranByPenghuniId(penghuniId);
+    }
 }

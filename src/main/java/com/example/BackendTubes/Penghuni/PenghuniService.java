@@ -47,6 +47,8 @@ public class PenghuniService {
         }else if(update.containsKey("platKendaraan")){
             penghuni.setPlatKendaraan((String) update.get("platKendaraan"));
         }
+
+        penghuniRepository.save(penghuni);
     }
 
     public Map<String, Object> tambahPenghuni(PenghuniDTO penghuniDTO){

@@ -33,8 +33,8 @@ public class PenghuniController {
         penghuniService.addNewPenghuni(penghuni);
     }
 
-    @PatchMapping(path = "api/penghuni/{id}")
-    public void updatePenghuni(@PathVariable Long id, @RequestBody Map<String, Object> update){
+    @PatchMapping(path = "{id}")
+    public void updatePenghuni(@PathVariable("id") Long id, @RequestBody Map<String, Object> update){
         penghuniService.updatePenghuni(id,update);
     }
 

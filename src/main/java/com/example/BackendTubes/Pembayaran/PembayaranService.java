@@ -26,6 +26,7 @@ public class PembayaranService {
 
         Pembayaran newPembayaran = new Pembayaran();
         newPembayaran.setTanggalBayar(pembayaran.getTanggalBayar());
+        newPembayaran.setNominalPembayaran(pembayaran.getNominalPembayaran());
         newPembayaran.setStatus(pembayaran.getStatus());
         newPembayaran.setPenghuni(penghuni);
         pembayaranRepository.save(newPembayaran);
@@ -33,5 +34,9 @@ public class PembayaranService {
 
     public List<Pembayaran> getPembayaran(){
         return pembayaranRepository.findAll();
+    }
+
+    public List<Pembayaran> getPembayaranByPenghuniId(Long penghuniId){
+        return pembayaranRepository.findAllByPenghuniId(penghuniId);
     }
 }
