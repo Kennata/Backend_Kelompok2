@@ -1,21 +1,33 @@
 package com.example.BackendTubes.RiwayatPenghuni;
 
-import java.util.List;
+import java.util.*;
+import java.time.LocalDate;
+import java.io.IOException;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.hibernate.sql.Update;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.web.bind.annotation.*;
+
+import com.example.BackendTubes.Kos.Kos;
+import com.example.BackendTubes.Kos.KosRepository;
 
 @RestController
 @RequestMapping("/api/riwayat-penghuni")
 public class RiwayatPenghuniController {
+    private final RiwayatPenghuniService riwayatPenghuniService;
 
     @Autowired
-    private RiwayatPenghuniRepository repository;
+    public RiwayatPenghuniController(RiwayatPenghuniService riwayatPenghuniService){
+        this.riwayatPenghuniService = riwayatPenghuniService;
+    }
 
-    @GetMapping
-    public List<RiwayatPenghuni> getAll() {
-        return repository.findAll();
+    @GetMapping("/view")
+    public List<RiwayatPenghuni> getRiwayatPenghuni(){
+        return riwayatPenghuniService.getRiwayatPenghuni();
+    }
+    
+   @PostMapping("/add")
+    public void addNewRiwayatPenghuni(@RequestBody RiwayatPenghuni riwayatPenghuni) {
+        riwayatPenghuniService.addNewRiwayatPenghuni(riwayatPenghuni);
     }
 }

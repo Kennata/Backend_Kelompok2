@@ -1,75 +1,39 @@
 package com.example.BackendTubes.RiwayatPenghuni;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.BackendTubes.Kamar.kosRepository;
+import com.example.BackendTubes.Kos.Kos;
+import com.example.BackendTubes.Kos.KosRepository;
+
 @Service
 public class RiwayatPenghuniService {
 
-    private final RiwayatPenghuniRepository riwayatPenghuniRepository;
+    private final RiwayatPenghuniRepository riwayatRepo;
+    private final KosRepository kosRepo;
 
     @Autowired
-    public RiwayatPenghuniService(RiwayatPenghuniRepository riwayatPenghuniRepository) {
-        this.riwayatPenghuniRepository = riwayatPenghuniRepository;
+    public RiwayatPenghuniService(RiwayatPenghuniRepository riwayatRepo, KosRepository kosRepo) {
+        this.riwayatRepo = riwayatRepo;
+        this.kosRepo = kosRepo;
     }
 
-    // Create or Update RiwayatPenghuni
-    public RiwayatPenghuni saveRiwayatPenghuni(RiwayatPenghuni riwayatPenghuni) {
-        if (riwayatPenghuni.getId() == null || riwayatPenghuni.getId().isEmpty()) {
-            throw new IllegalArgumentException("ID cannot be null or empty");
-        }
-        if (riwayatPenghuni.getKos() == null) {
-            throw new IllegalArgumentException("Kos cannot be null");
-        }
-        if (riwayatPenghuni.getTanggalMasuk() == null || riwayatPenghuni.getTanggalMasuk().isEmpty()) {
-            throw new IllegalArgumentException("Tanggal Masuk cannot be null or empty");
-        }
-        return riwayatPenghuniRepository.save(riwayatPenghuni);
+    public List<RiwayatPenghuni> getRiwayatPenghuni() {
+        return riwayatRepo.findAll();
     }
 
-    // Get all RiwayatPenghuni
-    public List<RiwayatPenghuni> getAllRiwayatPenghuni() {
-        return riwayatPenghuniRepository.findAll();
-    }
+    public void addNewRiwayatPenghuni(RiwayatPenghuni riwayatPenghuni) {
+        Long kosId = riwayatPenghuni.getKos().getId();
+        Kos kos = kosRepo.getKosById(kosId)
+                .orElseThrow(() -> new RuntimeException("Kos tidak ditemukan"));
 
-    // Get RiwayatPenghuni by ID
-    public Optional<RiwayatPenghuni> getRiwayatPenghuniById(String id) {
-        if (id == null || id.isEmpty()) {
-            throw new IllegalArgumentException("ID cannot be null or empty");
-        }
-        return riwayatPenghuniRepository.findById(id);
-    }
-
-    // Update RiwayatPenghuni
-    public RiwayatPenghuni updateRiwayatPenghuni(String id, RiwayatPenghuni updatedRiwayat) {
-        Optional<RiwayatPenghuni> existingRiwayat = riwayatPenghuniRepository.findById(id);
-        if (existingRiwayat.isEmpty()) {
-            throw new RuntimeException("RiwayatPenghuni with ID " + id + " not found");
-        }
-        RiwayatPenghuni riwayat = existingRiwayat.get();
-        if (updatedRiwayat.getKos() != null) {
-            riwayat.setKos(updatedRiwayat.getKos());
-        }
-        if (updatedRiwayat.getTanggalMasuk() != null) {
-            riwayat.setTanggalMasuk(updatedRiwayat.getTanggalMasuk());
-        }
-        if (updatedRiwayat.getTanggalKeluar() != null) {
-            riwayat.setTanggalKeluar(updatedRiwayat.getTanggalKeluar());
-        }
-        return riwayatPenghuniRepository.save(riwayat);
-    }
-
-    // Delete RiwayatPenghuni by ID
-    public void deleteRiwayatPenghuni(String id) {
-        if (id == null || id.isEmpty()) {
-            throw new IllegalArgumentException("ID cannot be null or empty");
-        }
-        if (!riwayatPenghuniRepository.existsById(id)) {
-            throw new RuntimeException("RiwayatPenghuni with ID " + id + " not found");
-        }
-        riwayatPenghuniRepository.deleteById(id);
+        riwayatPenghuni.setKos(kos);
+        riwayatRepo.save(riwayatPenghuni);
     }
 }
