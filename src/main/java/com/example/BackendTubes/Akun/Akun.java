@@ -9,19 +9,24 @@ import jakarta.persistence.*;
 /**
  *
  * @author LENOVO
- */
+
 @Entity
 @Table(name = "akun")
-public class Akun {
+*/
+@MappedSuperclass
+public abstract class Akun {
 
+    /*
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+     */
     private String email;
     private String password;
     private String role;
 
     // Getter Setter
+    /*
     public Long getId() {
         return id;
     }
@@ -29,6 +34,7 @@ public class Akun {
     public void setId(Long id) {
         this.id = id;
     }
+     */
 
     public String getEmail() {
         return email;

@@ -11,6 +11,11 @@ import java.util.Optional;
  *
  * @author LENOVO
  */
+
+/*
 public interface AkunRepository extends JpaRepository<Akun, Long> {
     Optional<Akun> findByEmail(String email);
 }
+
+
+ */

@@ -8,6 +8,8 @@ package com.example.BackendTubes.Akun;
  *
  * @author LENOVO
  */
+
+/*
 public class AkunDTO {
 
     private String email;
@@ -30,3 +32,5 @@ public class AkunDTO {
         this.password = password;
     }
 }
+
+ */

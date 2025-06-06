@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
  *
  * @author LENOVO
  */
+/*
 @RestController
 @RequestMapping("/api/akun")
 public class AkunContoller {
@@ -35,3 +36,5 @@ public class AkunContoller {
     }
 
 }
+
+ */

@@ -2,6 +2,7 @@ package com.example.BackendTubes.Penghuni;
 
 import java.util.List;
 
+import com.example.BackendTubes.Akun.Akun;
 import com.example.BackendTubes.Dokumen.Dokumen;
 import com.example.BackendTubes.Kamar.Kamar;
 import com.example.BackendTubes.Pembayaran.Pembayaran;
@@ -19,7 +20,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "penghuni")
-public class Penghuni {
+public class Penghuni extends Akun {
     @Id
     @SequenceGenerator(
             name = "penghuni_sequence",
