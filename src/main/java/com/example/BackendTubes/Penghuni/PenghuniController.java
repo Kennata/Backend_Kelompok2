@@ -43,4 +43,8 @@ public class PenghuniController {
         return penghuniService.tambahPenghuni(penghuniDTO);
     }
 
+    @GetMapping(path = "{nama}")
+    public Penghuni getPenghuniByNama(@PathVariable("nama") String nama){
+        return penghuniService.findPenghuniByNama(nama);
+    }
 }

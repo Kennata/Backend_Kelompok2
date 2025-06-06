@@ -73,4 +73,11 @@ public class PenghuniService {
         response.put("message", "Penghuni Sudah Ditambahkan");
         return response;
     }
+
+    public Penghuni findPenghuniByNama(String nama){
+        Penghuni penghuni=penghuniRepository.findByNama(nama)
+                .orElseThrow(() -> new IllegalStateException("penghuni with nama "+nama+" does not exist"));
+
+        return penghuni;
+    }
 }
