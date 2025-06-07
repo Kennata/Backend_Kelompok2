@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class PemilikService {
-
     private final PemilikRepository pemilikRepository;
 
     @Autowired

@@ -17,7 +17,6 @@ import java.util.List;
 @Entity
 @Table(name = "pemilik")
 public class Pemilik extends Akun {
-
     @Id
     @SequenceGenerator(
             name = "pemilik_sequence",

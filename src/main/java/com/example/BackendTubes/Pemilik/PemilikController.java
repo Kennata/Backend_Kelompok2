@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = "api/pemilik")
 public class PemilikController {
-
     private final PemilikService pemilikService;
 
     @Autowired
