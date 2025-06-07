@@ -26,6 +26,7 @@ public class Pembayaran {
     @ManyToOne
     @JoinColumn(name = "penghuniId", referencedColumnName = "id")
     private Penghuni penghuni;
+
     public Pembayaran() {
     }
 
@@ -78,13 +79,13 @@ public class Pembayaran {
 
     @Override
     public String toString() {
-        return "Pembayaran{" +
-                "id=" + id +
-                ", tanggalBayar=" + tanggalBayar +
-                ", nominalPembayaran=" + nominalPembayaran +
-                ", status='" + status + '\'' +
-                ", penghuni=" + penghuni +
-                '}';
+        return "Pembayaran{"
+                + "id=" + id
+                + ", tanggalBayar=" + tanggalBayar
+                + ", nominalPembayaran=" + nominalPembayaran
+                + ", status='" + status + '\''
+                + ", penghuni=" + penghuni
+                + '}';
     }
 
     public Double getNominalPembayaran() {

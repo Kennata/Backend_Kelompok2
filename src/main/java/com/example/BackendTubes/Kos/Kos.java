@@ -5,6 +5,7 @@
 package com.example.BackendTubes.Kos;
 
 import com.example.BackendTubes.Kamar.Kamar;
+import com.example.BackendTubes.Pemilik.Pemilik;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
 @Entity
 @Table(name = "kost")
 public class Kos {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,9 +27,13 @@ public class Kos {
     private String tipeKos;
     private int harga;
     @OneToMany
-    @JoinColumn(name = "kosId",referencedColumnName="id")
+    @JoinColumn(name = "kosId", referencedColumnName = "id")
     private List<Kamar> dataKamar;
-    
+
+    @ManyToOne
+    @JoinColumn(name = "pemilikId", referencedColumnName = "id")
+    private Pemilik pemilik;
+
     public Long getId() {
         return id;
     }
@@ -91,5 +97,5 @@ public class Kos {
     public void setDataKamar(List<Kamar> dataKamar) {
         this.dataKamar = dataKamar;
     }
-    
-} 
+
+}
