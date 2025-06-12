@@ -4,13 +4,18 @@
  */
 package com.example.BackendTubes.Kamar;
 
-import java.util.List;
-
 import com.example.BackendTubes.Kos.Kos;
 import com.example.BackendTubes.Penghuni.Penghuni;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 /**
  *
@@ -30,6 +35,7 @@ public class Kamar {
     @JsonIgnore // Tambahkan ini
     private Kos kos;
     @OneToOne(mappedBy = "kamar")
+    @JsonIgnore
     private Penghuni dataPenghuni;
 
     public Long getId() {
