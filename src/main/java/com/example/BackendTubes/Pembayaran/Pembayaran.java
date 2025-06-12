@@ -1,9 +1,18 @@
 package com.example.BackendTubes.Pembayaran;
 
-import com.example.BackendTubes.Penghuni.Penghuni;
-import jakarta.persistence.*;
-
 import java.time.LocalDate;
+
+import com.example.BackendTubes.Penghuni.Penghuni;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "pembayaran")
@@ -20,17 +29,18 @@ public class Pembayaran {
     )
     private Long id;
     private LocalDate tanggalBayar;
-    private Double nominalPembayaran;
+    private int nominalPembayaran;
     private String status;
 
     @ManyToOne
     @JoinColumn(name = "penghuniId", referencedColumnName = "id")
+    @JsonIgnore
     private Penghuni penghuni;
 
     public Pembayaran() {
     }
 
-    public Pembayaran(Long id, LocalDate tanggalBayar, Double nominalPembayaran, String status, Penghuni penghuni) {
+    public Pembayaran(Long id, LocalDate tanggalBayar, int nominalPembayaran, String status, Penghuni penghuni) {
         this.id = id;
         this.tanggalBayar = tanggalBayar;
         this.nominalPembayaran = nominalPembayaran;
@@ -38,7 +48,7 @@ public class Pembayaran {
         this.penghuni = penghuni;
     }
 
-    public Pembayaran(LocalDate tanggalBayar, Double nominalPembayaran, String status, Penghuni penghuni) {
+    public Pembayaran(LocalDate tanggalBayar, int nominalPembayaran, String status, Penghuni penghuni) {
         this.tanggalBayar = tanggalBayar;
         this.nominalPembayaran = nominalPembayaran;
         this.status = status;
@@ -88,11 +98,11 @@ public class Pembayaran {
                 + '}';
     }
 
-    public Double getNominalPembayaran() {
+    public int getNominalPembayaran() {
         return nominalPembayaran;
     }
 
-    public void setNominalPembayaran(Double nominalPembayaran) {
+    public void setNominalPembayaran(int nominalPembayaran) {
         this.nominalPembayaran = nominalPembayaran;
     }
 }

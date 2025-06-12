@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 
 import com.example.BackendTubes.Kos.Kos;
 import com.example.BackendTubes.Kos.KosRepository;
+import com.example.BackendTubes.Pembayaran.Pembayaran;
+import com.example.BackendTubes.Pembayaran.PembayaranRepository;
 import com.example.BackendTubes.Penghuni.Penghuni;
 import com.example.BackendTubes.Penghuni.PenghuniRepository;
 
@@ -29,11 +31,13 @@ public class KamarService {
     private final KosRepository kosRepository;
     private final KamarRepository kamarRepository;
     private final PenghuniRepository penghuniRepository;
+    private final PembayaranRepository pembayaranRepository;
 
     @Autowired
-    public KamarService(KamarRepository kamarRepository, KosRepository kosRepository, PenghuniRepository penghuniRepository) {
+    public KamarService(KamarRepository kamarRepository, KosRepository kosRepository, PembayaranRepository pembayaranRepository, PenghuniRepository penghuniRepository) {
         this.kamarRepository = kamarRepository;
         this.kosRepository = kosRepository;
+        this.pembayaranRepository = pembayaranRepository;
         this.penghuniRepository = penghuniRepository;
     }
 
@@ -61,6 +65,7 @@ public class KamarService {
 
     public Map<String, Object> assignPenghuni(Long id, int noKamar, Long penghuniId) {
         Optional<Kamar> cekKamar = kamarRepository.findByKosIdAndNoKamar(id, noKamar);
+        Kos kos = kosRepository.getReferenceById(id);
         Penghuni p = penghuniRepository.getReferenceById(penghuniId);
         Map<String, Object> response = new HashMap<>();
         if (cekKamar.isEmpty()) {
@@ -73,7 +78,12 @@ public class KamarService {
             return response;
         }
         kamar.setStatus("Terisi");
+        Pembayaran pembayaran = new Pembayaran(null, kos.getHarga(), "Belum Lunas", p);
+        List<Pembayaran> riwayatPembayaran = p.getRiwayatPembayaran();
+        riwayatPembayaran.add(pembayaran);
+        p.setRiwayatPembayaran(riwayatPembayaran);
         p.setKamar(kamar);
+        pembayaranRepository.save(pembayaran);
         penghuniRepository.save(p);
         kamarRepository.save(kamar);
         response.put("message", "Penghuni Sudah di Assign");
@@ -103,6 +113,7 @@ public class KamarService {
             hasil.put("kontakDarurat", p.getKontakDarurat());
             hasil.put("jenisKendaraan", p.getJenisKendaraan());
             hasil.put("platKendaraan", p.getPlatKendaraan());
+            hasil.put("riwayatPembayaran", p.getRiwayatPembayaran());
         }
 
         response.put("dataPenghuni", hasil);
