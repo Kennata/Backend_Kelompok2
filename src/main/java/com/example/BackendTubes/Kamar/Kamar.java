@@ -8,35 +8,30 @@ import java.util.List;
 
 import com.example.BackendTubes.Kos.Kos;
 import com.example.BackendTubes.Penghuni.Penghuni;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 /**
  *
  * @author LENOVO
  */
 @Entity
-@Table(name="Kamar")
+@Table(name = "Kamar")
 public class Kamar {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private int noKamar;
     private String status;
     @ManyToOne
-    @JoinColumn(name="kosId")
+    @JoinColumn(name = "kosId")
+    @JsonIgnore // Tambahkan ini
     private Kos kos;
-    @OneToMany
-    @JoinColumn(name="noKamar", referencedColumnName="noKamar")
-    private List<Penghuni> dataPenghuni;
-    
+    @OneToOne(mappedBy = "kamar")
+    private Penghuni dataPenghuni;
+
     public Long getId() {
         return id;
     }
@@ -69,12 +64,12 @@ public class Kamar {
         this.kos = kos;
     }
 
-    public List<Penghuni> getDataPenghuni() {
+    public Penghuni getDataPenghuni() {
         return dataPenghuni;
     }
 
-    public void setDataPenghuni(List<Penghuni> dataPenghuni) {
+    public void setDataPenghuni(Penghuni dataPenghuni) {
         this.dataPenghuni = dataPenghuni;
     }
-    
+
 }

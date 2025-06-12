@@ -60,6 +60,7 @@ public class PenghuniService {
         }
         Penghuni penghuni = new Penghuni();
         penghuni.setNama(penghuniDTO.getNama());
+        penghuni.setJenisKelamin(penghuniDTO.getJenisKelamin());
         penghuni.setEmail(penghuniDTO.getEmail());
         penghuni.setPassword(penghuniDTO.getPassword());
         penghuni.setRole(penghuniDTO.getRole());

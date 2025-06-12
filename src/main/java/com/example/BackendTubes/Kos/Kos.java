@@ -6,6 +6,7 @@ package com.example.BackendTubes.Kos;
 
 import com.example.BackendTubes.Kamar.Kamar;
 import com.example.BackendTubes.Pemilik.Pemilik;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class Kos {
     private int harga;
     @OneToMany
     @JoinColumn(name = "kosId", referencedColumnName = "id")
+    @JsonIgnore // Tambahkan ini juga kalau kamu kirim Kos langsung
     private List<Kamar> dataKamar;
 
     @ManyToOne

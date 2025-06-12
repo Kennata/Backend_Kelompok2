@@ -2,6 +2,7 @@ package com.example.BackendTubes.Penghuni;
 
 public class PenghuniDTO {
     private String nama;
+    private String jenisKelamin;
     private int usia;
     private String pekerjaan;
     private String nomorHp;
@@ -42,6 +43,14 @@ public class PenghuniDTO {
 
     public void setNama(String nama) {
         this.nama = nama;
+    }
+    
+    public String getJenisKelamin() {
+        return jenisKelamin;
+    }
+
+    public void setJenisKelamin(String jenisKelamin) {
+        this.jenisKelamin = jenisKelamin;
     }
 
     public int getUsia() {

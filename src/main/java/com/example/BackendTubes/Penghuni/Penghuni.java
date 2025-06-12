@@ -8,19 +8,12 @@ import com.example.BackendTubes.Kamar.Kamar;
 import com.example.BackendTubes.Pembayaran.Pembayaran;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "penghuni")
 public class Penghuni extends Akun {
+
     @Id
     @SequenceGenerator(
             name = "penghuni_sequence",
@@ -39,6 +32,7 @@ public class Penghuni extends Akun {
     private String kontakDarurat;
     private String jenisKendaraan;
     private String platKendaraan;
+    private String jenisKelamin;
 
     @OneToMany(mappedBy = "penghuni")
     @JsonIgnore
@@ -48,16 +42,17 @@ public class Penghuni extends Akun {
     @JsonIgnore
     private List<Dokumen> dokumenIdentitas;
 
-    @ManyToOne
-    @JoinColumn(name="noKamar")
+    @OneToOne
+    @JoinColumn(name = "kamar_id")
     private Kamar kamar;
 
     public Penghuni() {
     }
 
-    public Penghuni(Long id, String nama, int usia, String pekerjaan, String nomorHp, String kontakDarurat, String jenisKendaraan, String platKendaraan, List<Pembayaran> riwayatPembayaran) {
+    public Penghuni(Long id, String nama, String jenisKelamin, int usia, String pekerjaan, String nomorHp, String kontakDarurat, String jenisKendaraan, String platKendaraan, List<Pembayaran> riwayatPembayaran) {
         this.id = id;
         this.nama = nama;
+        this.jenisKelamin = jenisKelamin;
         this.usia = usia;
         this.pekerjaan = pekerjaan;
         this.nomorHp = nomorHp;
@@ -67,8 +62,9 @@ public class Penghuni extends Akun {
         this.riwayatPembayaran = riwayatPembayaran;
     }
 
-    public Penghuni(String nama, int usia, String pekerjaan, String nomorHp, String kontakDarurat, String jenisKendaraan, String platKendaraan, List<Pembayaran> riwayatPembayaran) {
+    public Penghuni(String nama, String jenisKelamin, int usia, String pekerjaan, String nomorHp, String kontakDarurat, String jenisKendaraan, String platKendaraan, List<Pembayaran> riwayatPembayaran) {
         this.nama = nama;
+        this.jenisKelamin = jenisKelamin;
         this.usia = usia;
         this.pekerjaan = pekerjaan;
         this.nomorHp = nomorHp;
@@ -92,6 +88,14 @@ public class Penghuni extends Akun {
 
     public void setNama(String nama) {
         this.nama = nama;
+    }
+
+    public String getJenisKelamin() {
+        return jenisKelamin;
+    }
+
+    public void setJenisKelamin(String jenisKelamin) {
+        this.jenisKelamin = jenisKelamin;
     }
 
     public int getUsia() {
@@ -152,17 +156,17 @@ public class Penghuni extends Akun {
 
     @Override
     public String toString() {
-        return "Penghuni{" +
-                "id=" + id +
-                ", nama='" + nama + '\'' +
-                ", usia=" + usia +
-                ", pekerjaan='" + pekerjaan + '\'' +
-                ", nomorHp='" + nomorHp + '\'' +
-                ", kontakDarurat='" + kontakDarurat + '\'' +
-                ", jenisKendaraan='" + jenisKendaraan + '\'' +
-                ", platKendaraan='" + platKendaraan + '\'' +
-                ", riwayatPembayaran=" + riwayatPembayaran +
-                '}';
+        return "Penghuni{"
+                + "id=" + id
+                + ", nama='" + nama + '\''
+                + ", usia=" + usia
+                + ", pekerjaan='" + pekerjaan + '\''
+                + ", nomorHp='" + nomorHp + '\''
+                + ", kontakDarurat='" + kontakDarurat + '\''
+                + ", jenisKendaraan='" + jenisKendaraan + '\''
+                + ", platKendaraan='" + platKendaraan + '\''
+                + ", riwayatPembayaran=" + riwayatPembayaran
+                + '}';
     }
 
     public Kamar getKamar() {

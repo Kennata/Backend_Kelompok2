@@ -46,8 +46,8 @@ public class KamarService {
             return response;
         }
         Kos kos = cekKos.get();
-        List<Kamar> dataKamar = kos.getDataKamar(); 
-        for (Kamar k : dataKamar){
+        List<Kamar> dataKamar = kos.getDataKamar();
+        for (Kamar k : dataKamar) {
             Map<String, Object> kamarMap = new LinkedHashMap<>();
             kamarMap.put("noKamar", k.getNoKamar());
             kamarMap.put("status", k.getStatus());
@@ -59,8 +59,8 @@ public class KamarService {
         return response;
     }
 
-    public Map<String, Object> assignPenghuni(Long id, int noKamar, Long penghuniId){
-        Optional<Kamar> cekKamar = kamarRepository.findByKosIdAndNoKamar(id,noKamar);
+    public Map<String, Object> assignPenghuni(Long id, int noKamar, Long penghuniId) {
+        Optional<Kamar> cekKamar = kamarRepository.findByKosIdAndNoKamar(id, noKamar);
         Penghuni p = penghuniRepository.getReferenceById(penghuniId);
         Map<String, Object> response = new HashMap<>();
         if (cekKamar.isEmpty()) {
@@ -68,62 +68,74 @@ public class KamarService {
             return response;
         }
         Kamar kamar = cekKamar.get();
-        if (kamar.getStatus().equals("Terisi")){
+        if (kamar.getStatus().equals("Terisi")) {
             response.put("message", "Kamar Sudah Terisi");
             return response;
         }
         kamar.setStatus("Terisi");
-        List<Penghuni> dataPenghuni = kamar.getDataPenghuni();
-        dataPenghuni.add(p);
-        kamar.setDataPenghuni(dataPenghuni);
+        p.setKamar(kamar);
+        penghuniRepository.save(p);
         kamarRepository.save(kamar);
         response.put("message", "Penghuni Sudah di Assign");
         return response;
     }
 
-    public Map<String, Object> viewPenghuni(Long id, int noKamar){
-        Optional<Kamar> cekKamar = kamarRepository.findByKosIdAndNoKamar(id,noKamar);
+    public Map<String, Object> viewPenghuni(Long id, int noKamar) {
+        Optional<Kamar> cekKamar = kamarRepository.findByKosIdAndNoKamar(id, noKamar);
         Map<String, Object> response = new HashMap<>();
-        List<Map<String, Object>> hasil = new ArrayList<>();
+        Map<String, Object> hasil = new LinkedHashMap<>();
+
         if (cekKamar.isEmpty()) {
             response.put("message", "Kos Tidak Ditemukan");
             return response;
         }
+
         Kamar kamar = cekKamar.get();
-        List<Penghuni> dataPenghuni = kamar.getDataPenghuni();
-        for (Penghuni p : dataPenghuni){
-            Map<String, Object> kamarMap = new LinkedHashMap<>();
-            kamarMap.put("id", p.getId());
-            kamarMap.put("nama", p.getNama());
-            kamarMap.put("usia", p.getUsia());
-            kamarMap.put("nomorHp", p.getNomorHp());
-            kamarMap.put("pekerjaan", p.getPekerjaan());
-            kamarMap.put("kontakDarurat", p.getKontakDarurat());
-            kamarMap.put("jenisKendaraan", p.getJenisKendaraan());
-            kamarMap.put( "platKendaraan", p.getPlatKendaraan());
-            hasil.add(kamarMap);
+        Penghuni dataPenghuni = kamar.getDataPenghuni();
+
+        if (dataPenghuni != null) {
+            Penghuni p = dataPenghuni;
+            hasil.put("id", p.getId());
+            hasil.put("nama", p.getNama());
+            hasil.put("usia", p.getUsia());
+            hasil.put("nomorHp", p.getNomorHp());
+            hasil.put("pekerjaan", p.getPekerjaan());
+            hasil.put("kontakDarurat", p.getKontakDarurat());
+            hasil.put("jenisKendaraan", p.getJenisKendaraan());
+            hasil.put("platKendaraan", p.getPlatKendaraan());
         }
+
         response.put("dataPenghuni", hasil);
         return response;
     }
 
-    public Map<String, Object> kosongKamar(Long id, int noKamar){
-        Optional<Kamar> cekKamar = kamarRepository.findByKosIdAndNoKamar(id,noKamar);
+    public Map<String, Object> kosongKamar(Long id, int noKamar) {
+        Optional<Kamar> cekKamar = kamarRepository.findByKosIdAndNoKamar(id, noKamar);
         Map<String, Object> response = new HashMap<>();
+
         if (cekKamar.isEmpty()) {
             response.put("message", "Kamar Tidak Ditemukan");
             return response;
         }
+
         Kamar kamar = cekKamar.get();
-        if (kamar.getStatus().equals("Kosong")){
+
+        if (kamar.getStatus().equals("Kosong")) {
             response.put("message", "Kamar Sudah Kosong");
             return response;
         }
+
+        Penghuni penghuni = kamar.getDataPenghuni(); // get the penghuni (karena sekarang OneToOne)
+        if (penghuni != null) {
+            penghuni.setKamar(null); // putuskan relasi dari sisi Penghuni
+            penghuniRepository.save(penghuni); // simpan perubahan penghuni
+        }
+
         kamar.setStatus("Kosong");
-        List<Penghuni> dataPenghuni = kamar.getDataPenghuni();
-        dataPenghuni.clear();
-        kamarRepository.save(kamar);
+        kamarRepository.save(kamar); // simpan status kamar
+
         response.put("message", "Kamar Berhasil Dikosongkan");
         return response;
     }
+
 }

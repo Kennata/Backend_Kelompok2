@@ -17,7 +17,6 @@ public class KosDTO {
     private int harga;
 
     public String getNamaKos() {
-        
         return namaKos;
     }
 
