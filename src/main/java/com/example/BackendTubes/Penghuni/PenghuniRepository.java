@@ -10,8 +10,6 @@ public interface PenghuniRepository extends JpaRepository<Penghuni, Long> {
     Optional<Penghuni> findByNama(String nama);
 
     Optional<Penghuni> findByEmail(String email);
-
-    Optional<Penghuni> findByNamaEmail(String nama, String email);
-
+    
     Optional<Penghuni> findByNamaOrEmail(String nama, String email);
 }

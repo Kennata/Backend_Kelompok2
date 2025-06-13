@@ -19,7 +19,5 @@ public interface PemilikRepository extends JpaRepository<Pemilik, Long> {
 
     Optional<Pemilik> findByEmail(String email);
 
-    Optional<Pemilik> findByNamaEmail(String nama, String email);
-
     Optional<Pemilik> findByNamaOrEmail(String nama, String email);
 }
