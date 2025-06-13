@@ -52,7 +52,7 @@ public class PenghuniService {
     }
 
     public Map<String, Object> tambahPenghuni(PenghuniDTO penghuniDTO){
-        Optional<Penghuni> existingPenghuni = penghuniRepository.findByNama(penghuniDTO.getNama());
+        Optional<Penghuni> existingPenghuni = penghuniRepository.findByNamaEmail(penghuniDTO.getNama(),penghuniDTO.getEmail());
         Map<String, Object> response = new HashMap<>();
         if (existingPenghuni.isPresent()){
             response.put("message", "Penghuni Sudah Ada");

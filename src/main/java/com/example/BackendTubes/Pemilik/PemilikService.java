@@ -47,7 +47,7 @@ public class PemilikService {
     }
 
     public Map<String, Object> tambahPemilik(PemilikDTO pemilikDTO) {
-        Optional<Pemilik> existingPemilik = pemilikRepository.findByNama(pemilikDTO.getNama());
+        Optional<Pemilik> existingPemilik = pemilikRepository.findByNamaEmail(pemilikDTO.getNama(),pemilikDTO.getEmail());
         Map<String, Object> response = new HashMap<>();
         if (existingPemilik.isPresent()) {
             response.put("message", "Pemilik Sudah Ada");
