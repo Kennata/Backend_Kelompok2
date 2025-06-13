@@ -38,4 +38,9 @@ public class KosController {
     public Map<String, Object> viewKos(){
         return kosService.viewKos();
     }
+
+    @GetMapping("/detail/{id}")
+    public Map<String, Object> detailKos(@PathVariable Long id){
+        return kosService.detailKos(id);
+    }
 }

@@ -13,7 +13,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.example.BackendTubes.Kamar.Kamar;
 import com.example.BackendTubes.Kamar.KamarRepository;
 import com.example.BackendTubes.Kamar.KamarService;
@@ -128,6 +127,24 @@ public class KosService {
             hasil.add(kosMap);
         }
         response.put("dataKos", hasil);
+        return response;
+    }
+
+    public Map<String, Object> detailKos(Long id){
+        Optional<Kos> existingId = kosRepository.findById(id);
+        Map<String, Object> response = new HashMap<>();
+        if (existingId.isEmpty()) {
+            response.put("message", "Kos tidak ditemukan");
+            return response;
+        }
+        Kos kos = existingId.get();
+        response.put("id", kos.getId());
+        response.put("namaKos", kos.getNamaKos());
+        response.put("alamat", kos.getAlamat());
+        response.put("jumlahKamar", kos.getJumlahKamar());
+        response.put("deskripsi", kos.getDeskripsi());
+        response.put("tipeKos", kos.getTipeKos());
+        response.put("harga", kos.getHarga());
         return response;
     }
 }
