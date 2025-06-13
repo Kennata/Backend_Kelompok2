@@ -89,6 +89,7 @@ public class KamarService {
         riwayatPembayaran.add(pembayaran);
         p.setRiwayatPembayaran(riwayatPembayaran);
         p.setKamar(kamar);
+        pembayaranRepository.deleteAll();
         pembayaranRepository.save(pembayaran);
         penghuniRepository.save(p);
         kamarRepository.save(kamar);
