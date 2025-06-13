@@ -1,13 +1,14 @@
 package com.example.BackendTubes.Pembayaran;
 
 
-import com.example.BackendTubes.Penghuni.Penghuni;
-import com.example.BackendTubes.Penghuni.PenghuniRepository;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.util.List;
+import com.example.BackendTubes.Penghuni.Penghuni;
+import com.example.BackendTubes.Penghuni.PenghuniRepository;
+import com.example.BackendTubes.TanggalCounter;
 
 @Service
 public class PembayaranService {
@@ -25,7 +26,9 @@ public class PembayaranService {
                 .orElseThrow(() -> new RuntimeException("Penghuni not found"));
 
         Pembayaran newPembayaran = new Pembayaran();
-        newPembayaran.setTanggalBayar(pembayaran.getTanggalBayar());
+        TanggalCounter tanggal = new TanggalCounter();
+        newPembayaran.setTanggalAwal(tanggal.getTanggalSekarang());
+        newPembayaran.setTanggalAkhir(tanggal.getTanggalDepan());
         newPembayaran.setNominalPembayaran(pembayaran.getNominalPembayaran());
         newPembayaran.setStatus(pembayaran.getStatus());
         newPembayaran.setPenghuni(penghuni);

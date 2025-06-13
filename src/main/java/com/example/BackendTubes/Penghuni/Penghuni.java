@@ -6,6 +6,7 @@ import com.example.BackendTubes.Akun.Akun;
 import com.example.BackendTubes.Dokumen.Dokumen;
 import com.example.BackendTubes.Kamar.Kamar;
 import com.example.BackendTubes.Pembayaran.Pembayaran;
+import com.example.BackendTubes.Transaksi.Transaksi;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
@@ -53,6 +54,10 @@ public class Penghuni extends Akun {
     @OneToOne
     @JoinColumn(name = "kamar_id")
     private Kamar kamar;
+
+    @OneToMany
+    @JoinColumn(name = "penghuni_id", referencedColumnName = "id")
+    private List<Transaksi> transaksi;
 
     public Penghuni() {
     }
@@ -183,5 +188,13 @@ public class Penghuni extends Akun {
 
     public void setKamar(Kamar kamar) {
         this.kamar = kamar;
+    }
+
+    public List<Transaksi> getTransaksi() {
+        return transaksi;
+    }
+
+    public void setTransaksi(List<Transaksi> transaksi) {
+        this.transaksi = transaksi;
     }
 }

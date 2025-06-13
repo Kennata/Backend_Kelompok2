@@ -28,7 +28,8 @@ public class Pembayaran {
             generator = "pembayaran_sequence"
     )
     private Long id;
-    private LocalDate tanggalBayar;
+    private LocalDate tanggalAwal;
+    private LocalDate tanggalAkhir;
     private int nominalPembayaran;
     private String status;
 
@@ -39,17 +40,21 @@ public class Pembayaran {
 
     public Pembayaran() {
     }
-
-    public Pembayaran(Long id, LocalDate tanggalBayar, int nominalPembayaran, String status, Penghuni penghuni) {
+    
+    public Pembayaran(Long id, LocalDate tanggalAwal, LocalDate tanggalAkhir, int nominalPembayaran, String status,
+            Penghuni penghuni) {
         this.id = id;
-        this.tanggalBayar = tanggalBayar;
+        this.tanggalAwal = tanggalAwal;
+        this.tanggalAkhir = tanggalAkhir;
         this.nominalPembayaran = nominalPembayaran;
         this.status = status;
         this.penghuni = penghuni;
     }
 
-    public Pembayaran(LocalDate tanggalBayar, int nominalPembayaran, String status, Penghuni penghuni) {
-        this.tanggalBayar = tanggalBayar;
+    public Pembayaran(LocalDate tanggalAwal, LocalDate tanggalAkhir, int nominalPembayaran, String status,
+            Penghuni penghuni) {
+        this.tanggalAwal = tanggalAwal;
+        this.tanggalAkhir = tanggalAkhir;
         this.nominalPembayaran = nominalPembayaran;
         this.status = status;
         this.penghuni = penghuni;
@@ -62,13 +67,21 @@ public class Pembayaran {
     public void setId(Long id) {
         this.id = id;
     }
-
-    public LocalDate getTanggalBayar() {
-        return tanggalBayar;
+    
+    public LocalDate getTanggalAwal() {
+        return tanggalAwal;
     }
 
-    public void setTanggalBayar(LocalDate tanggalBayar) {
-        this.tanggalBayar = tanggalBayar;
+    public void setTanggalAwal(LocalDate tanggalAwal) {
+        this.tanggalAwal = tanggalAwal;
+    }
+
+    public LocalDate getTanggalAkhir() {
+        return tanggalAkhir;
+    }
+
+    public void setTanggalAkhir(LocalDate tanggalAkhir) {
+        this.tanggalAkhir = tanggalAkhir;
     }
 
     public String getStatus() {
@@ -91,7 +104,7 @@ public class Pembayaran {
     public String toString() {
         return "Pembayaran{"
                 + "id=" + id
-                + ", tanggalBayar=" + tanggalBayar
+                + ", tanggalBayar=" + tanggalAkhir
                 + ", nominalPembayaran=" + nominalPembayaran
                 + ", status='" + status + '\''
                 + ", penghuni=" + penghuni

@@ -4,6 +4,7 @@
  */
 package com.example.BackendTubes.Kamar;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -20,6 +21,8 @@ import com.example.BackendTubes.Pembayaran.Pembayaran;
 import com.example.BackendTubes.Pembayaran.PembayaranRepository;
 import com.example.BackendTubes.Penghuni.Penghuni;
 import com.example.BackendTubes.Penghuni.PenghuniRepository;
+import com.example.BackendTubes.TanggalCounter;
+import com.example.BackendTubes.Transaksi.TransaksiService;
 
 import jakarta.transaction.Transactional;
 
@@ -34,13 +37,15 @@ public class KamarService {
     private final KamarRepository kamarRepository;
     private final PenghuniRepository penghuniRepository;
     private final PembayaranRepository pembayaranRepository;
+    private final TransaksiService transaksiService;
 
     @Autowired
-    public KamarService(KamarRepository kamarRepository, KosRepository kosRepository, PembayaranRepository pembayaranRepository, PenghuniRepository penghuniRepository) {
+    public KamarService(KamarRepository kamarRepository, KosRepository kosRepository, PembayaranRepository pembayaranRepository, PenghuniRepository penghuniRepository, TransaksiService transaksiService) {
         this.kamarRepository = kamarRepository;
         this.kosRepository = kosRepository;
         this.pembayaranRepository = pembayaranRepository;
         this.penghuniRepository = penghuniRepository;
+        this.transaksiService = transaksiService;
     }
 
     public Map<String, Object> viewKamar(Long Id) {
@@ -67,6 +72,7 @@ public class KamarService {
 
     @Transactional
     public Map<String, Object> assignPenghuni(Long id, int noKamar, Long penghuniId) {
+        TanggalCounter tanggal = new TanggalCounter();
         Optional<Kamar> cekKamar = kamarRepository.findByKosIdAndNoKamar(id, noKamar);
         Kos kos = kosRepository.getReferenceById(id);
         Penghuni p = penghuniRepository.getReferenceById(penghuniId);
@@ -86,14 +92,18 @@ public class KamarService {
             return response;
         }
         kamar.setStatus("Terisi");
-        Pembayaran pembayaran = new Pembayaran(null, kos.getHarga(), "Belum Lunas", p);
+        pembayaranRepository.deleteByPenghuniId(penghuniId);
+        LocalDate tanggalSekarang = tanggal.getTanggalSekarang();
         List<Pembayaran> riwayatPembayaran = p.getRiwayatPembayaran();
         riwayatPembayaran.clear();
-        riwayatPembayaran.add(pembayaran);
+        for (int i=0;i<2;i++){
+            Pembayaran pembayaran = new Pembayaran(tanggalSekarang,tanggalSekarang.plusYears(1), kos.getHarga(), "Belum Lunas", p);
+            riwayatPembayaran.add(pembayaran);
+            pembayaranRepository.save(pembayaran);
+            tanggalSekarang = tanggalSekarang.plusYears(1);
+        }
         p.setRiwayatPembayaran(riwayatPembayaran);
         p.setKamar(kamar);
-        pembayaranRepository.deleteByPenghuniId(penghuniId);;
-        pembayaranRepository.save(pembayaran);
         penghuniRepository.save(p);
         kamarRepository.save(kamar);
         response.put("message", "Penghuni Sudah di Assign");
@@ -125,6 +135,8 @@ public class KamarService {
             hasil.put("jenisKendaraan", p.getJenisKendaraan());
             hasil.put("platKendaraan", p.getPlatKendaraan());
             hasil.put("riwayatPembayaran", p.getRiwayatPembayaran());
+            Map<String, Object> mapTransaksi = transaksiService.viewTransaksi(p.getId());
+            hasil.putAll(mapTransaksi);
         }
 
         response.put("dataPenghuni", hasil);
