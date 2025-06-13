@@ -109,6 +109,7 @@ public class PenghuniService {
         }
         Kamar kamar = existingPenghuni.get().getKamar();
         Kos kos = kamar.getKos();
+        response.put("message", "Penghuni terdaftar");
         response.put("id", kos.getId());
         response.put("namaKos", kos.getNamaKos());
         response.put("alamat", kos.getAlamat());
