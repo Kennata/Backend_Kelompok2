@@ -73,6 +73,11 @@ public class KamarService {
             return response;
         }
         Kamar kamar = cekKamar.get();
+        if (p.getKamar() != null){
+            Kamar kamarSebelum = p.getKamar();
+            kamarSebelum.setStatus("Kosong");
+            kamarRepository.save(kamarSebelum);
+        }
         if (kamar.getStatus().equals("Terisi")) {
             response.put("message", "Kamar Sudah Terisi");
             return response;
