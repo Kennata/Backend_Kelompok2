@@ -52,4 +52,9 @@ public class PenghuniController {
     public Map<String, Object> login(@RequestBody PenghuniDTO penghuniDTO) {
         return penghuniService.login(penghuniDTO);
     }
+
+    @GetMapping(path = "/{nama}/view")
+    public Map<String, Object> viewKos(@PathVariable String nama){
+        return penghuniService.viewKos(nama);
+    }
 }

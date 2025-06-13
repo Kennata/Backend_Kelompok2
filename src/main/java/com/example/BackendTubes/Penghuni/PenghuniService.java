@@ -1,12 +1,16 @@
 package com.example.BackendTubes.Penghuni;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.example.BackendTubes.Kamar.Kamar;
+import com.example.BackendTubes.Kos.Kos;
 
 @Service
 public class PenghuniService {
@@ -90,6 +94,30 @@ public class PenghuniService {
             return response;
         }
         response.put("message","Login berhasil");
+        return response;
+    }
+
+    public Map<String, Object> viewKos(String nama){
+        Optional<Penghuni> existingPenghuni = penghuniRepository.findByNama(nama);
+        Map<String, Object> response = new LinkedHashMap<>();
+        if (existingPenghuni.isEmpty()){
+            response.put("message","Penghuni tidak terdaftar");
+            return response;
+        } else if (existingPenghuni.get().getKamar() == null){
+            response.put("message","Penghuni tidak terdaftar");
+            return response;
+        }
+        Kamar kamar = existingPenghuni.get().getKamar();
+        Kos kos = kamar.getKos();
+        response.put("id", kos.getId());
+        response.put("namaKos", kos.getNamaKos());
+        response.put("alamat", kos.getAlamat());
+        response.put("jumlahKamar", kos.getJumlahKamar());
+        response.put("deskripsi", kos.getDeskripsi());
+        response.put("tipeKos", kos.getTipeKos());
+        response.put("harga", kos.getHarga());
+        response.put("dataKamar", kamar);
+        response.put("riwayatPembayaran", existingPenghuni.get().getRiwayatPembayaran());
         return response;
     }
 }

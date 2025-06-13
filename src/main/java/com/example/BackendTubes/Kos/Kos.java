@@ -4,11 +4,20 @@
  */
 package com.example.BackendTubes.Kos;
 
+import java.util.List;
+
 import com.example.BackendTubes.Kamar.Kamar;
 import com.example.BackendTubes.Pemilik.Pemilik;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-import java.util.List;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 /**
  *
