@@ -76,7 +76,6 @@ public class KamarService {
         if (p.getKamar() != null){
             Kamar kamarSebelum = p.getKamar();
             kamarSebelum.setStatus("Kosong");
-            p.setRiwayatPembayaran(null);
             kamarRepository.save(kamarSebelum);
         }
         if (kamar.getStatus().equals("Terisi")) {
@@ -86,6 +85,7 @@ public class KamarService {
         kamar.setStatus("Terisi");
         Pembayaran pembayaran = new Pembayaran(null, kos.getHarga(), "Belum Lunas", p);
         List<Pembayaran> riwayatPembayaran = p.getRiwayatPembayaran();
+        riwayatPembayaran.clear();
         riwayatPembayaran.add(pembayaran);
         p.setRiwayatPembayaran(riwayatPembayaran);
         p.setKamar(kamar);
