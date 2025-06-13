@@ -20,6 +20,7 @@ import com.example.BackendTubes.Pembayaran.Pembayaran;
 import com.example.BackendTubes.Pembayaran.PembayaranRepository;
 import com.example.BackendTubes.Penghuni.Penghuni;
 import com.example.BackendTubes.Penghuni.PenghuniRepository;
+
 import jakarta.transaction.Transactional;
 
 /**
@@ -63,7 +64,7 @@ public class KamarService {
         response.put("dataKamar", hasil);
         return response;
     }
-    
+
     @Transactional
     public Map<String, Object> assignPenghuni(Long id, int noKamar, Long penghuniId) {
         Optional<Kamar> cekKamar = kamarRepository.findByKosIdAndNoKamar(id, noKamar);
@@ -91,7 +92,7 @@ public class KamarService {
         riwayatPembayaran.add(pembayaran);
         p.setRiwayatPembayaran(riwayatPembayaran);
         p.setKamar(kamar);
-        pembayaranRepository.deleteByPenghuniId(penghuniId);
+        pembayaranRepository.deleteByPenghuniId(penghuniId);;
         pembayaranRepository.save(pembayaran);
         penghuniRepository.save(p);
         kamarRepository.save(kamar);

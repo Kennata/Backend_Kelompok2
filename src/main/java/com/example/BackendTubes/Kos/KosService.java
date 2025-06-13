@@ -91,6 +91,15 @@ public class KosService {
         }
 
         Kos kos = existingId.get();
+        if (kos.getHarga() != kosDTO.getHarga()){
+            kos.getDataKamar().forEach(kamar -> {
+                if (kamar.getStatus().equals("Terisi")){
+                    kamar.getDataPenghuni().getRiwayatPembayaran().forEach(pembayaran -> {
+                        pembayaran.setNominalPembayaran(kosDTO.getHarga());
+                    });
+                }
+            });
+        }
         kos.setNamaKos(kosDTO.getNamaKos());
         kos.setHarga(kosDTO.getHarga());
         kos.setDeskripsi(kosDTO.getDeskripsi());
