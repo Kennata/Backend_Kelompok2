@@ -16,4 +16,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PemilikRepository extends JpaRepository<Pemilik, Long> {
     Optional<Pemilik> findByNama(String nama);
+
+    Optional<Pemilik> findByEmail(String email);
 }

@@ -81,4 +81,15 @@ public class PenghuniService {
 
         return penghuni;
     }
+
+    public Map<String, Object> login(PenghuniDTO penghuniDTO) {
+        Optional<Penghuni> existingEmail = penghuniRepository.findByEmail(penghuniDTO.getEmail());
+        Map<String, Object> response = new HashMap<>();
+        if (existingEmail.isEmpty()){
+            response.put("message","Email tidak ditemukan");
+            return response;
+        }
+        response.put("message","Login berhasil");
+        return response;
+    }
 }

@@ -47,4 +47,9 @@ public class PenghuniController {
     public Penghuni getPenghuniByNama(@PathVariable("nama") String nama){
         return penghuniService.findPenghuniByNama(nama);
     }
+
+    @PostMapping(path = "/login")
+    public Map<String, Object> login(@RequestBody PenghuniDTO penghuniDTO) {
+        return penghuniService.login(penghuniDTO);
+    }
 }

@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PenghuniRepository extends JpaRepository<Penghuni, Long> {
     Optional<Penghuni> findByNama(String nama);
+
+    Optional<Penghuni> findByEmail(String email);
 }

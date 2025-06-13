@@ -4,7 +4,10 @@
  */
 package com.example.BackendTubes.Pemilik;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,5 +68,16 @@ public class PemilikService {
                 .orElseThrow(() -> new IllegalStateException("pemilik with nama " + nama + " does not exist"));
 
         return pemilik;
+    }
+
+    public Map<String, Object> login(PemilikDTO pemilikDTO) {
+        Optional<Pemilik> existingEmail = pemilikRepository.findByEmail(pemilikDTO.getEmail());
+        Map<String, Object> response = new HashMap<>();
+        if (existingEmail.isEmpty()){
+            response.put("message","Email tidak ditemukan");
+            return response;
+        }
+        response.put("message","Login berhasil");
+        return response;
     }
 }

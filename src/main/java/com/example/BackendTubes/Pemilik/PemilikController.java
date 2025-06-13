@@ -54,4 +54,9 @@ public class PemilikController {
     public Pemilik getPemilikByNama(@PathVariable("nama") String nama) {
         return pemilikService.findPemilikByNama(nama);
     }
+
+    @PostMapping(path = "/login")
+    public Map<String, Object> login(@RequestBody PemilikDTO pemilikDTO) {
+        return pemilikService.login(pemilikDTO);
+    }
 }
