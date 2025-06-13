@@ -76,6 +76,7 @@ public class KamarService {
         if (p.getKamar() != null){
             Kamar kamarSebelum = p.getKamar();
             kamarSebelum.setStatus("Kosong");
+            p.setRiwayatPembayaran(null);
             kamarRepository.save(kamarSebelum);
         }
         if (kamar.getStatus().equals("Terisi")) {
@@ -112,6 +113,7 @@ public class KamarService {
             Penghuni p = dataPenghuni;
             hasil.put("id", p.getId());
             hasil.put("nama", p.getNama());
+            hasil.put("jenisKelamin", p.getJenisKelamin());
             hasil.put("usia", p.getUsia());
             hasil.put("nomorHp", p.getNomorHp());
             hasil.put("pekerjaan", p.getPekerjaan());
