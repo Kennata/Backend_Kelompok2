@@ -20,6 +20,7 @@ import com.example.BackendTubes.Pembayaran.Pembayaran;
 import com.example.BackendTubes.Pembayaran.PembayaranRepository;
 import com.example.BackendTubes.Penghuni.Penghuni;
 import com.example.BackendTubes.Penghuni.PenghuniRepository;
+import jakarta.transaction.Transactional;
 
 /**
  *
@@ -62,7 +63,8 @@ public class KamarService {
         response.put("dataKamar", hasil);
         return response;
     }
-
+    
+    @Transactional
     public Map<String, Object> assignPenghuni(Long id, int noKamar, Long penghuniId) {
         Optional<Kamar> cekKamar = kamarRepository.findByKosIdAndNoKamar(id, noKamar);
         Kos kos = kosRepository.getReferenceById(id);

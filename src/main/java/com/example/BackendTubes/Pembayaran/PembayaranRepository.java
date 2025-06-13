@@ -8,4 +8,6 @@ import java.util.List;
 @Repository
 public interface PembayaranRepository extends JpaRepository<Pembayaran, Long> {
     List<Pembayaran> findAllByPenghuniId(Long penghuniId);
+    
+    void deleteByPenghuniId(Long penghuniId);
 }
