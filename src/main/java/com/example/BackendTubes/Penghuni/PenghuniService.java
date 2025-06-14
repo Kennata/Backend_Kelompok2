@@ -11,15 +11,18 @@ import org.springframework.stereotype.Service;
 
 import com.example.BackendTubes.Kamar.Kamar;
 import com.example.BackendTubes.Kos.Kos;
+import com.example.BackendTubes.Transaksi.TransaksiService;
 
 @Service
 public class PenghuniService {
 
     private final PenghuniRepository penghuniRepository;
+    private final TransaksiService transaksiService;
 
     @Autowired
-    public PenghuniService(PenghuniRepository penghuniRepository) {
+    public PenghuniService(PenghuniRepository penghuniRepository, TransaksiService transaksiService) {
         this.penghuniRepository = penghuniRepository;
+        this.transaksiService = transaksiService;
     }
 
     public List<Penghuni> getPenghuni(){
@@ -119,6 +122,8 @@ public class PenghuniService {
         response.put("harga", kos.getHarga());
         response.put("dataKamar", kamar);
         response.put("riwayatPembayaran", existingPenghuni.get().getRiwayatPembayaran());
+        Map<String, Object> mapTransaksi = transaksiService.viewTransaksi(existingPenghuni.get().getId());
+        response.putAll(mapTransaksi);
         return response;
     }
 }
